@@ -36,7 +36,12 @@ Lệnh này sẽ tải image FalkorDB về và chạy ở background tại cổn
    ```bash
    npm install
    ```
-3. **Khởi tạo dữ liệu mẫu (Seed Database):** Đối với người dùng chạy dự án lần đầu, dự án sử dụng tập dữ liệu thực tế SNAP (ego-Facebook) để mô phỏng mạng lưới. Hãy chạy file seeder bằng lệnh sau:
+3. **Cấu hình môi trường (Environment Variables):**
+   Copy file `.env.example` thành `.env` và tùy chỉnh nếu cần thiết (lưu ý: dự án yêu cầu JWT_SECRET để chạy được tính năng đăng nhập).
+   ```bash
+   cp .env.example .env
+   ```
+4. **Khởi tạo dữ liệu mẫu (Seed Database):** Đối với người dùng chạy dự án lần đầu, dự án sử dụng tập dữ liệu thực tế SNAP (ego-Facebook) để mô phỏng mạng lưới. Hãy chạy file seeder bằng lệnh sau:
    ```bash
    node scripts/ingest_snap.js
    ```
