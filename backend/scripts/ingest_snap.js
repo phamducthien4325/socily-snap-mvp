@@ -6,7 +6,7 @@ require('dotenv').config();
 const { connectDB } = require('../db');
 
 // Thư mục chứa dữ liệu SNAP
-const SNAP_DIR = path.join(__dirname, '../../../snap_dataset/facebook');
+const SNAP_DIR = path.join(__dirname, '../../snap_dataset/facebook');
 
 async function run() {
     const graph = await connectDB();
@@ -58,13 +58,27 @@ async function run() {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('123456', salt);
 
+    const adminPassword = await bcrypt.hash('admin123', salt);
+    
+    const adminAccount = {
+        id: 'admin',
+        username: 'admin',
+        password: adminPassword,
+        name: 'System Administrator',
+        role: 'admin',
+        avatar: faker.image.avatar()
+    };
+
     const userArray = Array.from(allUsers).map(id => ({
         id: id,
         username: `user${id}`,
         password: hashedPassword,
         name: `Node ${id}`,
+        role: 'user',
         avatar: faker.image.avatar()
     }));
+    
+    userArray.unshift(adminAccount);
 
     const batchSize = 1000;
     for (let i = 0; i < userArray.length; i += batchSize) {
@@ -75,7 +89,7 @@ async function run() {
             SET n.username = u.username,
                 n.password = u.password,
                 n.name = u.name,
-                n.role = 'user',
+                n.role = u.role,
                 n.avatar = u.avatar
         `, { params: { users: batch } });
         console.log(`Inserted users ${Math.min(i + batch.length, userArray.length)} / ${userArray.length}`);

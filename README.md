@@ -36,11 +36,11 @@ Lệnh này sẽ tải image FalkorDB về và chạy ở background tại cổn
    ```bash
    npm install
    ```
-3. **Khởi tạo dữ liệu mẫu (Seed Database):** Đối với người dùng chạy dự án lần đầu, để có ngay một cơ sở dữ liệu đầy đủ dữ liệu người dùng, bài viết, bình luận, hãy chạy file seeder bằng lệnh sau:
+3. **Khởi tạo dữ liệu mẫu (Seed Database):** Đối với người dùng chạy dự án lần đầu, dự án sử dụng tập dữ liệu thực tế SNAP (ego-Facebook) để mô phỏng mạng lưới. Hãy chạy file seeder bằng lệnh sau:
    ```bash
-   node massiveSeeder.js
+   node scripts/ingest_snap.js
    ```
-   *(Quá trình này sẽ tự động kết nối với FalkorDB và tạo sẵn toàn bộ dữ liệu mẫu, bạn chỉ cần đợi đến khi terminal báo thành công).*
+   *(Quá trình này sẽ tự động kết nối với FalkorDB, đọc dữ liệu từ thư mục `snap_dataset` ở gốc dự án và tạo sẵn toàn bộ dữ liệu mẫu bao gồm cả tài khoản admin: `admin` / `admin123`. Bạn chỉ cần đợi đến khi terminal báo thành công).*
 4. Khởi động server backend ở chế độ phát triển:
    ```bash
    npm run dev
